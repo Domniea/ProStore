@@ -16,7 +16,7 @@ const LoadingScreen = () => {
             <Image 
                 src={loader} 
                 height={150}
-                width={150}
+                // width={'auto'}
                 alt="loading..."
             />
         </div>
