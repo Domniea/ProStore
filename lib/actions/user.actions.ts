@@ -5,7 +5,7 @@ import { signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
-
+import { formatError } from "../utils";
 //Sign in the user with credentials
 export async function signInWithCredentials(
   prevState: unknown,
@@ -70,12 +70,17 @@ export async function signUpUser(
     }
 
   } catch (error) {
+    
+    // console.log(error.name)
+    // console.log(error.code)
+    // console.log(error.errors)
+    // console.log(error.meta?.target)
     if (isRedirectError(error)) {
         throw error;
       }
     return {
       success: false,
-      message: 'User was not registered'
+      message:formatError(error)
     }
   }
 } 

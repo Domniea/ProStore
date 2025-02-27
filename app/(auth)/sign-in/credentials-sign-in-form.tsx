@@ -58,7 +58,7 @@ const CredentialsSignInForm = () => {
                         name='password'
                         type='password'
                         required
-                        // autoComplete='password'
+                        autoComplete='password'
                         placeholder={signInDefaultValues.password}
                     />
                 </div>

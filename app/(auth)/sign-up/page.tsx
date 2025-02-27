@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { APP_NAME } from "@/lib/constants";
-import SignUpForm from './credentials-sign-up-form'
+import SignUpForm from './sign-up-form'
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
