@@ -2,16 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { Plus } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { toast } from "sonner";
-import { CartItem } from "@/types";
-import { addItemToCart } from "@/lib/actions/cart.actions";
+import { Cart, CartItem } from "@/types";
+import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 
 
 
 
 
-const AddToCart  = ({ item }: { item: CartItem }) => {
+const AddToCart  = ({ cart, item }: { cart?: Cart, item: CartItem }) => {
     const router = useRouter()
 
 
@@ -32,7 +32,8 @@ const AddToCart  = ({ item }: { item: CartItem }) => {
         })
     }
 
-
+    // Check if item is in cart
+    const existItem = cart && cart.items.find((x) => x.productId === item.productId )
 
     return ( 
         <Button className="w-full" type="button" onClick={handleAddToCart}>
