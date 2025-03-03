@@ -34,7 +34,7 @@ const AddToCart  = ({ cart, item }: { cart?: Cart, item: CartItem }) => {
 
     // Check if item is in cart
     const existItem = cart && cart.items.find((x) => x.productId === item.productId )
-
+    console.log(existItem, removeItemFromCart, Minus)
     return ( 
         <Button className="w-full" type="button" onClick={handleAddToCart}>
             <Plus/>Add To Cart
