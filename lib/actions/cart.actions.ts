@@ -7,7 +7,7 @@ import { CartItem } from "@/types";
 import { prisma } from "@/db/prisma";
 import { cartItemSchema, insertCartSchema } from "../validators";
 import { revalidatePath } from "next/cache";
-import { Prisma } from "@prisma/client";
+// import { Prisma } from "@prisma/client";
 
 const calcPrice = (items: CartItem[]) => {
   const itemsPrice = round2(
@@ -97,13 +97,13 @@ export async function addItemToCart(data: CartItem) {
       }
 
       // Save to database
-      await prisma.cart.update({
-        where: { id: cart.id },
-        data: {
-          items: cart.items as Prisma.CartUpdateitemsInput[],
-          ...calcPrice(cart.items as CartItem[]),
-        },
-      });
+      // await prisma.cart.update({
+      //   where: { id: cart.id },
+      //   data: {
+      //     items: cart.items as Prisma.CartUpdateitemsInput[],
+      //     ...calcPrice(cart.items as CartItem[]),
+      //   },
+      // });
 
       // Revalidate page
       revalidatePath(`/product/${product.slug}`);
@@ -177,13 +177,13 @@ export async function removeItemFromCart (productId: string) {
       (cart.items as CartItem[]).find((x) => x.productId === productId)!.qty = exist.qty - 1
     }
 
-    await prisma.cart.update({
-      where: { id: cart.id },
-      data: {
-        items: cart.items as Prisma.CartUpdateitemsInput[],
-        ...calcPrice(cart.items as CartItem[])
-      }
-    })
+    // await prisma.cart.update({
+    //   where: { id: cart.id },
+    //   data: {
+    //     items: cart.items as Prisma.CartUpdateitemsInput[],
+    //     ...calcPrice(cart.items as CartItem[])
+    //   }
+    // })
       
     revalidatePath(`/product/${product.slug}`)
 
