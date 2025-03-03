@@ -6,7 +6,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { compareSync } from 'bcrypt-ts-edge'
 import type { NextAuthConfig } from 'next-auth'
 // import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
+// import { NextResponse } from 'next/server'
 
 
 
