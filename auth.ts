@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import NextAuth from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
@@ -5,6 +6,8 @@ import { prisma } from '@/db/prisma'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { compareSync } from 'bcrypt-ts-edge'
 import type { NextAuthConfig } from 'next-auth'
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
 
 
 
@@ -27,18 +30,18 @@ export const config = {
             async authorize(credentials) {
                 if (credentials == null) return null
 
-                //Find user in database
+                // Find user in database
                 const user = await prisma.user.findFirst({
                     where: {
                         email: credentials.email as string
                     } 
                 })
       
-                //Check if user exists and if the passwords matches
+                //  Check if user exists and if the passwords matches
                 if( user && user.password ) {
                     const isMatch = compareSync(credentials.password as string, user.password)
                     
-                    //Check if password is correct return user
+                    // Check if password is correct return user
                     if( isMatch ) {
                         return {
                             id: user.id,
@@ -49,7 +52,7 @@ export const config = {
                     }
                 }
 
-                //If user does not exist or password is incorrect return null
+                // If user does not exist or password is incorrect return null
                 return null
             }
         })
@@ -57,14 +60,12 @@ export const config = {
     callbacks: {
         async session({ session, user, trigger, token }: any) {
             
-            //Set user id from token
+            // Set user id from token
             session.user.id = token.sub
             session.user.role = token.role
             session.user.name = token.name
-    
-            console.log('Token;', token)
 
-            //If there is an update, set the user name
+            //  If there is an update, set the user name
             if ( trigger === 'update' ) {
                 session.user.name = user.name
             }
@@ -72,7 +73,7 @@ export const config = {
             return session
           },
           async jwt({token, user, trigger, session,}: any) {
-            //Assign user fields to token
+            // Assign user fields to token
             if(user) {
                 token.role = user.role
     
@@ -87,9 +88,33 @@ export const config = {
             }
             
             return token
+        },
+        authorized({request, auth}: any) {
+            // Check for session cart cookie
+            if(!request.cookies.get('sessionCartId')) {
+                // Generate new session cart id cookie
+                const sessionCartId = crypto.randomUUID()
+
+                // Clone request headers
+                const newRequestHeaders = new Headers(request.headers)
+
+                // Create new response and add new headers 
+                const response = NextResponse.next({
+                    request: {
+                        headers: newRequestHeaders
+                    }
+                })
+
+                // Set newly generated sessionCartId in the response cookies
+                response.cookies.set('sessionCartId', sessionCartId)
+
+                return response
+                return true
+            } else {
+                return true
+            }
         }
     },
-    
 
 } satisfies NextAuthConfig
 

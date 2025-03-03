@@ -3,8 +3,8 @@ export const APP_DESCRIPTION = process.env.APP_DESCRIPTION || 'An ecomerce store
 export const SERVER_URL = process.env.APP_URL || 'https://localhost:3000'
 
 export const signInDefaultValues = {
-    email: '',
-    password: ''
+    email: 'example@example.com',
+    password: 'password'
 }
 
 export const signUpDefaultValues = {

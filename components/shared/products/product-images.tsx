@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const ProductImages = ({ images }: {images: string[]}) => {
 
     const [current, setCurrent] = useState(0)
-    console.log(current)
+    
     return (
         <div className="space-y4">
             <Image
@@ -16,6 +16,7 @@ const ProductImages = ({ images }: {images: string[]}) => {
                 width={1000}
                 height={1000}
                 alt="Product image"
+                priority
             />
             <div className="flex">
                 {
