@@ -93,7 +93,7 @@ export const config = {
             if(!request.cookies.get('sessionCartId')) {
                 // Generate new session cart id cookie
                 // const sessionCartId = crypto.randomUUID()
-                const sessionCartId = '12345'
+                const sessionCartId = crypto.randomUUID()
 
                 // Clone request headers
                 const newRequestHeaders = new Headers(request.headers)
