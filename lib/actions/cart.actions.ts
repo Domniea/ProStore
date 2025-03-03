@@ -35,7 +35,7 @@ export async function addItemToCart(data: CartItem) {
 
     // Get session and user ID
     const session = await auth();
-    const userId = session?.user?.id ? (session.user.id as string) : undefined;
+    const userId = session?.user?.id ? (session.user.id as string) : null;
 
     const cart = await getMyCart();
 
@@ -130,7 +130,7 @@ export async function getMyCart() {
 
   // Get session and user ID
   const session = await auth();
-  const userId = session?.user?.id ? (session.user.id as string) : undefined;
+  const userId = session?.user?.id ? (session.user.id as string) : null;
 
   // Get user cart from database
   const cart = await prisma.cart.findFirst({
