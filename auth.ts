@@ -6,7 +6,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { compareSync } from 'bcrypt-ts-edge'
 import type { NextAuthConfig } from 'next-auth'
 // import { cookies } from 'next/headers'
-// import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
 
 
@@ -88,6 +88,32 @@ export const config = {
             
             return token
         },
+        authorized({request}: any) {
+            // Check for session cart cookie
+            if(!request.cookies.get('sessionCartId')) {
+                // Generate new session cart id cookie
+                // const sessionCartId = crypto.randomUUID()
+                const sessionCartId = crypto.randomUUID()
+
+                // Clone request headers
+                const newRequestHeaders = new Headers(request.headers)
+
+                // Create new response and add new headers 
+                const response = NextResponse.next({
+                    request: {
+                        headers: newRequestHeaders
+                    }
+                })
+
+                // Set newly generated sessionCartId in the response cookies
+                response.cookies.set('sessionCartId', sessionCartId)
+
+                return response
+                // return true
+            } else {
+                return true
+            }
+        }
     },
 
 } satisfies NextAuthConfig
