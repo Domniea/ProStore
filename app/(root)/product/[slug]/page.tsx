@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import ProductPrice from "@/components/shared/products/product-price";
 import ProductImages from "@/components/shared/products/product-images";
 import AddToCart from "@/components/shared/products/add-to-cart";
-import { getMyCart } from "@/lib/actions/cart.actions";
+import { getMyCart } from "@/lib/actions/cart.actions"; 
 
 const ProductDetailsPage = async (props: {
     params: Promise<{slug: string}>
