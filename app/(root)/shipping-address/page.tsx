@@ -8,10 +8,9 @@ import ShippingAddressForm from "./shipping-address-form";
 import { shippingAddressDefaultValues } from "@/lib/constants";
 
 
-export const metaData: Metadata = {
-  title: "Shipping Address",
+export const metadata: Metadata = {
+  title: 'Shipping Address',
 };
-
 const ShippingAddressPage = async () => {
   const cart = await getMyCart();
 
