@@ -151,52 +151,56 @@ export async function getMyCart() {
 }
 
 
-export async function removeItemFromCart (productId: string) {
+export async function removeItemFromCart(productId: string) {
   try {
+    // Check for cart cookie
+    const sessionCartId = (await cookies()).get('sessionCartId')?.value;
+    if (!sessionCartId) throw new Error('Cart session not found');
+
+    // Get Product
     const product = await prisma.product.findFirst({
-      where: { id: productId}
-    })
+      where: { id: productId },
+    });
+    if (!product) throw new Error('Product not found');
 
-    if (!product) throw new Error('Product not found')
+    // Get user cart
+    const cart = await getMyCart();
+    if (!cart) throw new Error('Cart not found');
 
-    const cart = await getMyCart()
-
-    if (!cart) throw new Error('Cart not found')
-    
     // Check for item
-    const exist = (cart.items as CartItem[]).find((x) => x.productId = productId)
+    const exist = (cart.items as CartItem[]).find(
+      (x) => x.productId === productId
+    );
+    if (!exist) throw new Error('Item not found');
 
-    if (!exist) throw new Error('Product not found')
-
-    // Check if quantity is only 1
+    // Check if only one in qty
     if (exist.qty === 1) {
       // Remove from cart
-      cart.items = (cart.items as CartItem[]). filter((x) => x.productId !== exist.productId)
-
+      cart.items = (cart.items as CartItem[]).filter(
+        (x) => x.productId !== exist.productId
+      );
     } else {
-      // Decrease quantity
-      (cart.items as CartItem[]).find((x) => x.productId === productId)!.qty = exist.qty - 1
+      // Decrease qty
+      (cart.items as CartItem[]).find((x) => x.productId === productId)!.qty =
+        exist.qty - 1;
     }
 
+    // Update cart in database
     await prisma.cart.update({
       where: { id: cart.id },
       data: {
         items: cart.items as Prisma.CartUpdateitemsInput[],
-        ...calcPrice(cart.items as CartItem[])
-      }
-    })
-      
-    revalidatePath(`/product/${product.slug}`)
+        ...calcPrice(cart.items as CartItem[]),
+      },
+    });
+
+    revalidatePath(`/product/${product.slug}`);
 
     return {
       success: true,
-      message: `${product.name} was successfully removed`
-    }
-
-  } catch (error) {
-    return {
-      success: false,
-      message: formatError(error),
+      message: `${product.name} was removed from cart`,
     };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
   }
 }
