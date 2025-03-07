@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { ShippingAddress } from "@/types";
@@ -6,7 +7,7 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { shippingAddressSchema } from "@/lib/validators";
 import { ControllerRenderProps, useForm } from "react-hook-form";
-import { TypeOf, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { shippingAddressDefaultValues } from "@/lib/constants";
 import {
@@ -30,8 +31,8 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
     defaultValues: address || shippingAddressDefaultValues,
   });
 
-  const handleSubmitForm = (values) => {
-    console.log(values);
+  const handleSubmitForm = () => {
+    console.log('test');
   };
 
   return (
@@ -55,7 +56,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
               }: {
                 field: ControllerRenderProps<
                   z.infer<typeof shippingAddressSchema>,
-                  fullName
+                  'fullName'
                 >;
               }) => (
                 <FormItem className="w-full">
@@ -76,7 +77,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
               }: {
                 field: ControllerRenderProps<
                   z.infer<typeof shippingAddressSchema>,
-                  streetAddress
+                  'streetAddress'
                 >;
               }) => (
                 <FormItem className="w-full">
@@ -97,7 +98,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
               }: {
                 field: ControllerRenderProps<
                   z.infer<typeof shippingAddressSchema>,
-                  city
+                  'city'
                 >;
               }) => (
                 <FormItem className="w-full">
@@ -118,7 +119,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
               }: {
                 field: ControllerRenderProps<
                   z.infer<typeof shippingAddressSchema>,
-                  postalCode
+                  'postalCode'
                 >;
               }) => (
                 <FormItem className="w-full">
@@ -139,7 +140,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
               }: {
                 field: ControllerRenderProps<
                   z.infer<typeof shippingAddressSchema>,
-                  country
+                  'country'
                 >;
               }) => (
                 <FormItem className="w-full">

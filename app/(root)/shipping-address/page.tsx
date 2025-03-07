@@ -24,7 +24,7 @@ const ShippingAddressPage = async () => {
   if (!userId) throw new Error("No user id");
 
   const user = await getUserById(userId);
-    // console.log(user)
+    console.log(user)
   return (
     <ShippingAddressForm address={shippingAddressDefaultValues}/>
   )
