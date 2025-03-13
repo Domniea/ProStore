@@ -14,9 +14,16 @@ export const signUpDefaultValues = {
     confirmPassword: ''
 }
 export const shippingAddressDefaultValues = {
-    fullName: '',
-    streetAddress: '',
-    city: '',
-    postalCode: '',
-    country: ''
+    fullName: 'John Doe',
+    streetAddress: '123 Main St.',
+    city: 'Anytown',
+    postalCode: '123456',
+    country: 'USA'
 }
+// export const shippingAddressDefaultValues = {
+//     fullName: '',
+//     streetAddress: '',
+//     city: '',
+//     postalCode: '',
+//     country: ''
+// }

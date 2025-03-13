@@ -1,5 +1,6 @@
 'use client'
 
+// import { use, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +14,7 @@ import { useSearchParams } from "next/navigation";
 
 
 const CredentialsSignInForm = () => {
+    // const [isView, setIsView] = useState(false)
 
     const [data, action] = useActionState(signInWithCredentials, {
         success: false,
@@ -56,7 +58,8 @@ const CredentialsSignInForm = () => {
                     <Input
                         id='password'
                         name='password'
-                        type='password'
+                        // type={isView ? 'text' : 'password'}
+                        type="password"
                         required
                         autoComplete='password'
                         placeholder={signInDefaultValues.password}
