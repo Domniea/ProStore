@@ -16,7 +16,7 @@ import { updateUserPaymentMethod } from "@/lib/actions/user.actions";
 
 
 const PaymentMethodForm = ({
-  preferredPaymentMehtod,
+    preferredPaymentMethod,
 }: {
   preferredPaymentMethod: string | null;
 }) => {
@@ -26,7 +26,7 @@ const PaymentMethodForm = ({
   const form = useForm<z.infer<typeof paymentMethodSchema>>({
     resolver: zodResolver(paymentMethodSchema),
     defaultValues: {
-      type: preferredPaymentMehtod || DEFAULT_PAYMENT_METHOD,
+      type: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD,
     },
   });
 
