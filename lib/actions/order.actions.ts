@@ -8,7 +8,7 @@ import { getUserById } from "./user.actions";
 import { insertOrderSchema } from "../validators";
 import { prisma } from "@/db/prisma";
 import { CartItem } from "@/types";
-import { redirect } from "next/dist/server/api-utils";
+
 
 //Create orderand create the order items
 export async function createOrder() {
