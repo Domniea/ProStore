@@ -2,10 +2,10 @@ import { auth } from "@/auth";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-// import { ShippingAddress } from "@/types";
+import { ShippingAddress } from "@/types";
 import { getUserById } from "@/lib/actions/user.actions";
 import ShippingAddressForm from "./shipping-address-form";
-import { ShippingAddress } from "@/types";
+
 import CheckoutSteps from "@/components/shared/checkout-steps";
 
 
