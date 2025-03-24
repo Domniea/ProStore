@@ -20,7 +20,6 @@ const ProductDetailsPage = async (props: {
 
     return (
       <>
-        <section>
           <div className="grid grid-cols-1 md:grid-cols-5">
             {/* Images Column */}
             <div className="col-span-2">
@@ -86,7 +85,6 @@ const ProductDetailsPage = async (props: {
               </Card>
             </div>
           </div>
-        </section>
       </>
     );
 }
