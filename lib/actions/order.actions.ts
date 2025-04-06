@@ -8,6 +8,8 @@ import { getUserById } from "./user.actions";
 import { insertOrderSchema } from "../validators";
 import { prisma } from "@/db/prisma";
 import { CartItem } from "@/types";
+import { paypal } from "../paypal";
+// import { revalidatePath } from "next/cache";
 
 //Create orderand create the order items
 export async function createOrder() {
@@ -122,4 +124,43 @@ export async function getOrderById(orderId: string) {
   });
 
   return convertToPlainObject(data);
+}
+
+//Create paypal order
+export async function createPaypalOrder(orderId: string) {
+  try {
+    const order = await prisma.order.findFirst({
+      where: { id: orderId }
+    })
+
+    if(order) {
+     //Create paypal order
+     const paypalOrder = await paypal.createOrder(Number(order.totalPrice))
+
+     //Update order with paypal order id
+     await prisma.order.update({
+      where: { id: orderId },
+      data: {
+        paymentResult: {
+          id: paypalOrder.id,
+          email_address: '',
+          status: '',
+          pricePaid: 0
+
+        }
+      }
+     })
+
+     return {
+      success: true,
+      message: 'Item order created',
+      data: paypalOrder.id
+     }
+    } else {
+      throw new Error('Order not found')
+    }
+    
+  } catch (error) {
+    return { success: false, message: formatError(error)}
+  }
 }

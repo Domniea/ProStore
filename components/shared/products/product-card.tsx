@@ -16,7 +16,7 @@ const ProductCard = ({product}: {product: Product}) => {
     } = product
     return ( 
         <Card className="w-full max-w-sm">
-            <CardHeader className='p-0 items-center'>
+            <CardHeader className='p-5 items-center'>
                 <Link href={`/product/${slug}`}>
                     <Image 
                         src={images[0]} 
