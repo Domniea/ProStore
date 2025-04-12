@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { updateProfileSchema } from "@/lib/validators";
+import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormInput } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 const ProfileForm = () => {
   const { data: session, update } = useSession();
@@ -22,9 +22,8 @@ const ProfileForm = () => {
     },
   });
 
-  const onSubmit = (value) => {
-    setTimeout(() => console.log(value), 1000)
-    return true;
+  const onSubmit = () => {
+    return ;
   };
 
   return (
