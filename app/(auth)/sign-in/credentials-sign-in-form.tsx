@@ -57,7 +57,7 @@ const CredentialsSignInForm = () => {
                 <div>
                     <Label htmlFor='email'>Password</Label>
                     <Input
-                    value={signInDefaultValues.password}
+                        value={signInDefaultValues.password}
                         id='password'
                         name='password'
                         // type={isView ? 'text' : 'password'}
