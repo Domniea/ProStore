@@ -74,7 +74,7 @@ export const config = {
 
       return session;
     },
-    async jwt({ token, user, trigger }: any) {
+    async jwt({ token, user, trigger, session }: any) {
       // Assign user fields to token
       if (user) {
         token.id = user.id;
@@ -109,41 +109,21 @@ export const config = {
               
               //Assign new cart
               await prisma.cart.update({
-                  where: {id: sessionCart.id},
-                  data: {userId: user.id}
-                })
+                where: {id: sessionCart.id},
+                data: {userId: user.id}
+              })
             }
           }
         }
       }
+      
+        // Handle session updated
+        if (session?.user.name && trigger === 'update') {
+          token.name = session.user.name
+        }
 
       return token;
     },
-    // authorized({ request }: any) {
-    //   // Check for session cart cookie
-    //   if (!request.cookies.get("sessionCartId")) {
-    //     // Generate new session cart id cookie
-    //     const sessionCartId = crypto.randomUUID();
-
-    //     // Clone request headers
-    //     const newRequestHeaders = new Headers(request.headers);
-
-    //     // Create new response and add new headers
-    //     const response = NextResponse.next({
-    //       request: {
-    //         headers: newRequestHeaders,
-    //       },
-    //     });
-
-    //     // Set newly generated sessionCartId in the response cookies
-    //     response.cookies.set("sessionCartId", sessionCartId);
-
-    //     return response;
-    //     // return true
-    //   } else {
-    //     return true;
-    //   }
-    // },
   },
 } satisfies NextAuthConfig;
 

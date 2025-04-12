@@ -169,7 +169,7 @@ export async function updateUserPaymentMethod(data: z.infer<typeof paymentMethod
 }
 
 // Update user profile
-export async function UpdateProfile(user: { name: string, email: string}) {
+export async function updateProfile(user: { name: string, email: string}) {
   try {
     const session = await auth()
 

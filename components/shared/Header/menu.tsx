@@ -10,10 +10,11 @@ import {
     SheetTrigger 
 } from "@/components/ui/sheet";
 import UserButton from "./user-button";
+import { auth } from "@/auth";
 
-const Menu = () => {
+const Menu = async () => {
 
-
+    const session = await auth()
 
 
     return ( 
@@ -46,6 +47,29 @@ const Menu = () => {
                             </Link>
                         </Button>
                         <UserButton/>
+                        {/* Admin button */}
+                           {
+                            session?.user?.role === 'admin' && (
+                                <Button variant='ghost'> 
+                                    <Link href={`/admin/overview`} className='w-full'>
+                                        Admin
+                                    </Link>
+                                </Button>
+                                )
+                            }
+                        {/* Profile button */}
+                        <Button variant='ghost'>
+                            <Link href={`/user/profile`} className='w-full'>
+                                User Profile
+                            </Link>
+                        </Button>
+                        {/* Orders button */}
+                        <Button variant='ghost'>
+                            <Link href={`/user/orders`} className='w-full'>
+                                Order History
+                            </Link>
+                        </Button>
+
                     </SheetContent>
                 </Sheet>
             </nav>

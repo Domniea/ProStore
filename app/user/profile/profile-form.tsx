@@ -1,15 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { updateProfileSchema } from "@/lib/validators";
-import { z } from 'zod'
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
-// import { toast } from "sonner";
+import { toast } from "sonner";
+import { updateProfile } from "@/lib/actions/user.actions";
+
+import { getOrderSummary } from "@/lib/actions/order.actions";
 
 const ProfileForm = () => {
   const { data: session, update } = useSession();
@@ -22,8 +30,22 @@ const ProfileForm = () => {
     },
   });
 
-  const onSubmit = () => {
-    return ;
+  const onSubmit = async (values: z.infer<typeof updateProfileSchema>) => {
+    const res = await updateProfile(values);
+
+    if (!res.success) toast.error("User not updated");
+
+    const newSession = {
+      ...session,
+      user: {
+        ...session?.user,
+        name: values.name,
+      },
+    };
+
+    await update(newSession);
+
+    toast("User successfully updated");
   };
 
   return (
@@ -47,6 +69,7 @@ const ProfileForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -62,6 +85,7 @@ const ProfileForm = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -72,7 +96,15 @@ const ProfileForm = () => {
             className="button col-span-2 w-full"
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? 'Submitting...' : 'Update Profile'}
+            {form.formState.isSubmitting ? "Submitting..." : "Update Profile"}
+          </Button>
+          <Button
+            onClick={getOrderSummary}
+            size="lg"
+            className="button col-span-2 w-full"
+            disabled={form.formState.isSubmitting}
+          >
+            Test
           </Button>
         </form>
       </Form>
