@@ -3,11 +3,11 @@ import { auth } from "@/auth";
 import { getOrderSummary } from "@/lib/actions/order.actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeDollarSign, CreditCardIcon, Users } from "lucide-react";
-import { formatCurrency, formatDateTime, formatNumber, formatNUmber } from "@/lib/utils";
+import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 
-export const metadata: MetaData = {
+export const metadata: Metadata = {
   title: "Admin Dashboard",
 };
 
