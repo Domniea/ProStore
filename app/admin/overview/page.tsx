@@ -6,6 +6,7 @@ import { BadgeDollarSign, CreditCardIcon, Users } from "lucide-react";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
+import Chart from "./chart";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -79,7 +80,7 @@ const AdminOverviewPage = async () => {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* Chart Here */}
+            <Chart/>
           </CardContent>
         </Card>
         <Card className="col-span-3">
