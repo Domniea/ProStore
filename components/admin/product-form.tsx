@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Product } from "@/types";
+import { z } from "zod";
 
 
 const ProductForm = ({type, product, productId}: {
