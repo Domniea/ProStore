@@ -12,7 +12,7 @@ const CreateProductPage = () => {
         <>
             <h2 className="h2-bold">Create</h2>
             <div className="my-8">
-                <ProductForm type='Create'/>
+                <ProductForm type='Create' productId="test"/>
             </div>
         </>
      );
