@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { productDefaultValues } from "@/lib/constants";
@@ -7,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Form } from "../ui/form";
 import { Product } from "@/types";
-import { z } from "zod";
 
 
 const ProductForm = ({type, product, productId}: {
@@ -17,7 +17,6 @@ const ProductForm = ({type, product, productId}: {
 }) => {
 
     const router = useRouter()
-    console.log(router, productId)
 
     const form = useForm<z.infer<typeof insertProductSchema>> ({
         resolver: type === 'Update' ? zodResolver(updateProductSchema) : zodResolver(insertProductSchema),
