@@ -40,6 +40,7 @@ export async function GetAllProducts({
     category: string
 }) {
     const data = await prisma.product.findMany({
+        orderBy: { createdAt: 'desc' },
         skip: (page -1) * limit,
         take: limit
     })
@@ -85,36 +86,36 @@ export async function createProduct(data: z.infer<typeof insertProductSchema>) {
         revalidatePath(`/admin/products`)
 
         return {
-            success: false,
-            message: 'Product created successfully'
+            success: true,
+            message: 'Product successfully created'
         }
     } catch (error) {
         return { success: false, message: formatError(error) }
     }
 } 
 
-// Update product
+//Update a product
 export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
-    try {
-        const product = updateProductSchema.parse(data)
-        const productExists = await prisma.product.findFirst({
-            where: { id: product.id}
-        })
+  try {
+    const product = updateProductSchema.parse(data);
+    const productExists = await prisma.product.findFirst({
+      where: { id: product.id },
+    });
 
-        if (!productExists) throw new Error('Product not found')
+    if (!productExists) throw new Error('Product not found');
 
-        await prisma.product.update({
-            where: { id: data.id},
-            data: product
-        })
+    await prisma.product.update({
+      where: { id: product.id },
+      data: product,
+    });
 
-        revalidatePath(`/admin/products`)
+    revalidatePath('/admin/products');
 
-        return {
-            success: false,
-            message: 'Product updated successfully'
-        }
-    } catch (error) {
-        return { success: false, message: formatError(error) }
-    }
+    return {
+      success: true,
+      message: 'Product updated successfully',
+    };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
 }
