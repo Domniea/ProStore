@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ProductPrice from "./product-price";
 import { Product } from "@/types";
@@ -9,7 +9,7 @@ const ProductCard = ({product}: {product: Product}) => {
         slug,
         name, 
         brand,
-        images,
+        // images,
         rating,
         stock,
         price
@@ -18,13 +18,13 @@ const ProductCard = ({product}: {product: Product}) => {
         <Card className="w-full max-w-sm">
             <CardHeader className='p-5 items-center'>
                 <Link href={`/product/${slug}`}>
-                    <Image 
+                    {/* <Image 
                         src={images[0]} 
                         alt={`${name} picture`}
                         height={300}
                         width={300}
                         priority={true}
-                    />
+                    /> */}
                 </Link>
             </CardHeader>
             <CardContent className="p-4 grid gap-4">
