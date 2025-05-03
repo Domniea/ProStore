@@ -85,7 +85,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
           Cart is empty. <Link href="/">Go Shoping</Link>
         </div>
       ) : (
-        <div className="grid md:grid-cols-5 md:gap-5">
+        <div className="grid md:grid-cols-4 md:gap-5">
           <div className="overflow-x-auto md:col-span-3">
             <Table>
               <TableHeader>
@@ -142,7 +142,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                 ) : (
                   <ArrowRight className="h-4 w-4" />
                 )}
-                Proceed to Check Out
+                Proceed to Checkout
               </Button>
             </CardContent>
           </Card>
