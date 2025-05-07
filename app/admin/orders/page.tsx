@@ -72,7 +72,7 @@ const AdminOrdersPage = async (props: {
                     : "Not Delivered"}
                 </TableCell>
                 <TableCell>
-                  <Button asChild variant="outline" size="sm" className="m-2">
+                  <Button asChild variant="outline" size="sm" className="m-22">
                     <Link href={`/order/${order.id}`}>Details</Link>
                   </Button>
                   {/* Delete Button */}

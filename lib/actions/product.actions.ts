@@ -19,12 +19,19 @@ export async function getLatestProducts() {
     return convertToPlainObject(data)
 }
 
-//Get single product by it's slug\
+//Get single product by it's slug
 export async function getProductBySlug(slug: string) {
     return await prisma.product.findFirst({
         where: { slug: slug }
     })
+}
+//Get single product by it's id
+export async function getProductById(productId: string) {
+    const data = await prisma.product.findFirst({
+        where: { id: productId }
+    })
 
+    return convertToPlainObject(data)
 }
 
 // Get all products
@@ -94,7 +101,7 @@ export async function createProduct(data: z.infer<typeof insertProductSchema>) {
     }
 } 
 
-//Update a product
+// Update a product
 export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
   try {
     const product = updateProductSchema.parse(data);
@@ -119,3 +126,5 @@ export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
     return { success: false, message: formatError(error) };
   }
 }
+
+// Get product by id
