@@ -18,13 +18,7 @@ export const signUpDefaultValues = {
   password: "",
   confirmPassword: "",
 };
-// export const shippingAddressDefaultValues = {
-//     fullName: 'John Doe',
-//     streetAddress: '123 Main St.',
-//     city: 'Anytown',
-//     postalCode: '123456',
-//     country: 'USA'
-// }
+
 export const shippingAddressDefaultValues = {
   fullName: "",
   streetAddress: "",
@@ -56,3 +50,5 @@ export const productDefaultValues = {
   isFeatured: false,
   banner: null
 }
+
+export const USER_ROLES = process.env.USER_ROLES ? process.env.USER_ROLES.split(', ') : ['admin', 'user']
