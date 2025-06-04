@@ -28,17 +28,20 @@ import {
   deliverOrder
 } from "@/lib/actions/order.actions";
 import { toast } from "sonner";
+import StripePayment from "./stripe-payment";
 
 
 
 const OrderDetailsTable = ({
   order,
   paypalClientId,
-  isAdmin
+  isAdmin,
+  stripeClientSecret
 }: {
   order: Order;
   paypalClientId: string;
-  isAdmin: boolean
+  isAdmin: boolean,
+  stripeClientSecret: string | null
 }) => {
   const {
     id,
@@ -241,8 +244,18 @@ const OrderDetailsTable = ({
                   </PayPalScriptProvider>
                 </div>
               )}
-            {/* Cash On Delivery */}
 
+              {/* Stripe Paymen */}
+              {
+               !isPaid && paymentMethod === 'Stripe' && stripeClientSecret && (
+                <StripePayment
+                  priceInCents={Number(totalPrice) * 100}
+                  orderId={order.id}
+                  clientSecret={stripeClientSecret}
+                />
+               )
+              }
+            {/* Cash On Delivery */}
             {
               isAdmin && !isPaid && paymentMethod === 'CashOnDelivery' && (
                 <MarkAsPaidButton/>

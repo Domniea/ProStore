@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 const PlaceOrderPage = async () => {
   const cart = await getMyCart();
   const session = await auth();
-  const userId = await session?.user?.id;
+  const userId = session?.user?.id;
 
   if (!userId) throw new Error("User notfound");
   const user = await getUserById(userId);

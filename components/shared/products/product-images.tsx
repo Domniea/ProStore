@@ -34,6 +34,7 @@ const ProductImages = ({ images }: {images: string[]}) => {
                                 height={100}
                                 width={100}
                                 alt="Image"
+                                priority
                             />
                         </div>
                     ))
