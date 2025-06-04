@@ -37,15 +37,6 @@ const ProductForm = ({
 }) => {
   const router = useRouter();
 
-  // Due to useForm only accepting 1 schema, I use the schema variable to pass in the apropriate  schema without type
-  const schema = type === "Update" ? updateProductSchema : insertProductSchema;
-
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues:
-      product && type === "Update" ? product : productDefaultValues,
-  });
-
   // The original solution
   // const form = useForm<z.infer<typeof insertProductSchema>>({
   //   resolver:
@@ -55,6 +46,35 @@ const ProductForm = ({
   //   defaultValues:
   //     product && type === 'Update' ? product : productDefaultValues,
   // });
+
+
+  // Due to type errors on 'updated schema containing "id" and insert not contaning "id"  these steps were taken below
+  const mapProductToFormValues = (product: Product): InsertValues => ({
+  name: product.name,
+  slug: product.slug,
+  category: product.category,
+  brand: product.brand,
+  description: product.description,
+  stock: product.stock,
+  images: product.images,
+  isFeatured: product.isFeatured,
+  banner: product.banner,
+  price: product.price,
+});
+
+type InsertValues = z.infer<typeof insertProductSchema>;
+type UpdateValues = z.infer<typeof updateProductSchema>;
+
+const form = useForm<InsertValues | UpdateValues>({
+  resolver: zodResolver(
+    type === "Update" ? updateProductSchema : insertProductSchema
+  ),
+  defaultValues:
+    type === "Update"
+      ? (mapProductToFormValues(product as Product) as UpdateValues)
+      : productDefaultValues,
+});
+
 
   const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (
     values
