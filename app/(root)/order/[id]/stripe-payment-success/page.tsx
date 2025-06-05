@@ -22,7 +22,7 @@ const SuccessPage = async (props: {
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
 
     // Check if payment intent is val id
-    if (paymentIntent.metadata.orderId === null || paymentIntent.metadata.orderId !== order.id) {
+    if (paymentIntent.metadata.orderId === null || paymentIntent.metadata.orderId !== order.id.toString()) {
         return notFound()
     }
 

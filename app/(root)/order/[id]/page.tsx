@@ -35,7 +35,8 @@ const OrderDetailsPage = async (props: {
             currency: 'USD',
             metadata: { orderId: order.id }
          })
-         client_secret = paymentIntent.client_secret         
+         client_secret = paymentIntent.client_secret   
+    
     }
 
 
