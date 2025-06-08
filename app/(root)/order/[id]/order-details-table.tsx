@@ -142,7 +142,7 @@ const OrderDetailsTable = ({
   return (
     <>
       <h1 className="py-4 text-2xl">Order {formatId(id)}</h1>
-      <div className="grid md:grid-cols-3 md:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5">
         <div className="col-span-2 space-4-y overflow-x-auto">
           <Card>
             <CardContent className="p-4 gap-4">
@@ -213,8 +213,8 @@ const OrderDetailsTable = ({
             </CardContent>
           </Card>
         </div>
-        <div>
-          <Card>
+        <div className="w-full my-2 md:my-0">
+          <Card className="w-full">
             <CardContent className="p-4 gap-4 space-y-4">
               <div className="flex justify-between">
                 <div>Items</div>
